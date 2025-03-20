@@ -64,4 +64,18 @@ app.delete('/user/:id', (req, res) => {
         res.json( {massage: 'User berhasil dihapus'});
     });
 });
+
+app.put('/user/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, email, age } = req.query;
+
+    db.query('UPDATE user SET name = ?, email = ?, age = ?, updatedAt = Now() WHERE id = ?', [name, email, age, id], (err, results) => {
+        if (err) {
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        res.json( {massage: 'User berhasil diupdate'} );
+    });
+});
 app.listen(3000, () => console.log('Server berjalan di http://localhost:3000'));
