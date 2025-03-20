@@ -1,0 +1,148 @@
+openapi: '3.0.3'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+
+components:
+  schemas:
+    user: 
+      type: object
+      properties:
+        id: 
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        age:
+          type: integer
+        createdAt:
+          type: string
+        UpdatedAt:
+          type: string
+ 
+paths:
+  /users:
+    get: 
+      description: 'endpoint untuk mendapatkan semua data user'
+      parameters: []
+      responses:
+        '200':
+          description: berhasil
+          content:
+            application/json:
+              schema: 
+               type: array
+               items:
+                $ref: '#/components/schemas/user'
+        '500':
+          description: Server Gagal
+        '403':
+          description: Tidak diijinkan
+  /user: 
+    post: 
+      summary: Crated new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                age:
+                  type: integer
+                createdAt: 
+                  type: string
+                updatedAt: 
+                  type: string
+
+      responses:
+        '200': 
+          description: Data berhasil dibuat
+          content:
+            application/json:
+              schema: 
+               type: array
+               items:
+                $ref: '#/components/schemas/user'
+        '500':
+          description: Server Gagal
+        '403':
+          description: Tidak diijinkan 
+
+  /user/{id}:
+    get:
+      summary: Get single user by id
+      parameters:
+        - name: id
+          in: path
+          description: ID user
+          required: true
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: Get data berhasil
+          content:
+            application/json:
+              schema: 
+               $ref: '#/components/schemas/user'
+        '404':
+          description: Data user tidak ditemukan
+        '500':
+          description: Server Gagal
+        '403':
+          description: Tidak diijinkan
+    delete:
+      summary: Delete user by id
+      parameters:
+        - name : id
+          in: path
+          required: true
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: berhasil
+        '500':
+          description: Server Gagal
+        '403':
+          description: Tidak diijinkan
+    put:
+      summary: Update user by id 
+      parameters:
+        - name: id 
+          in: path
+          description: Data user
+          required: true
+          schema:
+            type: integer
+        - name: name
+          in: query
+          required: true
+          schema: 
+            type: string
+        - name: email 
+          in: query
+          required: true
+          schema: 
+            type: string
+        - name: age 
+          in: query
+          required: true
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: berhasil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+    
