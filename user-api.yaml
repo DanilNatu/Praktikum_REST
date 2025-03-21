@@ -20,8 +20,10 @@ components:
           type: integer
         createdAt:
           type: string
+          format: date-time
         UpdatedAt:
           type: string
+          format: date-time
  
 paths:
   /users:
@@ -59,8 +61,10 @@ paths:
                   type: integer
                 createdAt: 
                   type: string
+                  format: date-time
                 updatedAt: 
                   type: string
+                  format: date-time
 
       responses:
         '200': 
